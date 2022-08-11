@@ -2,66 +2,59 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import TodoForm from "./components/TodoForm";
 import TodoItem from "./components/TodoItem";
+const axios = require("axios");
 
 function App() {
+  const [todoArray, setTodoArray] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   function getFetch() {
-    fetch("/todos")
-      .then((res) => res.json())
-      .then((data) => {
-        setTodoArray(data.items);
+    axios
+      .get("/todos", {
+        proxy: {
+          host: "localhost",
+          port: 3000,
+        },
+      })
+      .then((res) => {
+        setTodoArray(res.data.items);
         setLoading(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log("error: " + err));
   }
+
   function postTodo(value) {
-    fetch("/todos", {
-      method: "POST",
-      body: JSON.stringify({ label: value }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => setTodoArray((val) => [...val, data]))
-      .catch((err) => console.log(err));
+    axios
+      .post("todos", { label: value, struck: false, complete: false })
+      .catch((err) => console.log("error: " + err));
   }
 
   function delTodo(id) {
-    setLoading(true);
-    fetch(`/todos/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then(getFetch())
-      .catch((err) => console.log(err));
+    axios.delete(`/todos/${id}`).catch((err) => console.log("error: " + err));
+  }
+
+  function patchTodo(id, value) {
+    axios
+      .patch(`/todos/${id}`, { struck: value })
+      .catch((err) => console.log("error: " + err));
   }
 
   useEffect(() => {
     getFetch();
-  }, []);
-
-  const initalArrayValue = [];
-  const [todoArray, setTodoArray] = useState(initalArrayValue);
-  const [loading, setLoading] = useState(true);
+  }, [todoArray]);
 
   function onAddTask(taskValue) {
     if (taskValue === "") return;
     postTodo(taskValue);
   }
   function handleDelItem(id) {
-    console.log(id);
     delTodo(id);
   }
 
   return (
     <div className="App">
-      {/* title */}
       <h1 className="todo-title">Todo</h1>
-      {/* form */}
       <TodoForm addTask={onAddTask} />
-      {/* todos */}
       <div className="todo-container">
         <ul>
           {loading ? (
@@ -69,10 +62,10 @@ function App() {
           ) : (
             todoArray.map((todoItem) => (
               <TodoItem
-                text={todoItem.label}
+                data={todoItem}
                 key={todoItem.uuid}
-                id={todoItem.uuid}
                 del={handleDelItem}
+                patch={patchTodo}
               />
             ))
           )}
