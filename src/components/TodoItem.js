@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function TodoItem({ data, del, patch }) {
   const [struck, setStruck] = useState(data.struck);
@@ -18,8 +19,8 @@ export default function TodoItem({ data, del, patch }) {
       >
         {data.label}
       </span>
-      <button className="del-button" type="button" onClick={handleDel}>
-        Delete
+      <button className="todoItem__del" type="button" onClick={handleDel}>
+        <DeleteIcon />
       </button>
     </li>
   );

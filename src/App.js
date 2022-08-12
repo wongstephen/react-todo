@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import TodoForm from "./components/TodoForm";
 import TodoItem from "./components/TodoItem";
-const axios = require("axios");
+// const axios = require("axios");
+import axios from "axios";
 
 function App() {
   const [todoArray, setTodoArray] = useState([]);
@@ -52,22 +53,41 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <h1 className="todo-title">Todo</h1>
+    <div className="app__container">
+      <h1 className="app__title">Awesome Todo List</h1>
       <TodoForm addTask={onAddTask} />
       <div className="todo-container">
         <ul>
           {loading ? (
-            <div>loading</div>
+            <center>
+              <div className="dot-wave">
+                <div className="dot-wave__dot"></div>
+                <div className="dot-wave__dot"></div>
+                <div className="dot-wave__dot"></div>
+                <div className="dot-wave__dot"></div>
+              </div>
+            </center>
           ) : (
-            todoArray.map((todoItem) => (
-              <TodoItem
-                data={todoItem}
-                key={todoItem.uuid}
-                del={handleDelItem}
-                patch={patchTodo}
-              />
-            ))
+            todoArray
+              .slice(0)
+              .sort((a, b) => {
+                if (a.created_date < b.created_date) {
+                  return -1;
+                }
+                if (a.created_date > b.created_date) {
+                  return 1;
+                }
+                return 0;
+              })
+              .reverse()
+              .map((todoItem) => (
+                <TodoItem
+                  key={todoItem.uuid}
+                  data={todoItem}
+                  del={handleDelItem}
+                  patch={patchTodo}
+                />
+              ))
           )}
         </ul>
       </div>

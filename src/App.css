@@ -2,12 +2,36 @@
   /* background-color: rgba(0,255,255,.1); */
   box-sizing: border-box;
 }
-.App {
-  margin: 0 auto;;
+/***********************************************
+APP
+***********************************************/
+.app__container {
+  border-radius: 1rem;
+  border: 1px solid gray;
+  margin: 2rem auto;
   max-width: 800px;
   min-width: 350px;
+  padding: 1rem;
   text-align: center;
 }
+.app__title{
+  font-size: 3rem;
+}
+/***********************************************
+TODO FORM
+***********************************************/
+.form__input {
+  border-radius: 1rem;
+  border: 1px solid gray;
+  padding: 0 2rem
+}
+.form__input:focus {
+  border: 1px solid gray;
+  outline: 2px solid gray;
+}
+
+
+
 .todo-container > ul {
   list-style: none;
   padding: 0;
@@ -46,8 +70,11 @@ form > button {
   width: 5.5rem;
 }
 
-.del-button {
-  background-color: orange;
+/***********************************************
+TODO ITEM
+***********************************************/
+.todoItem__del {
+  background-color: none;
   border: 0;
   color: white;
   font-size: .5rem;
@@ -61,4 +88,60 @@ form > button {
 .todo-item {
   display: flex;
   align-items: center;
+}
+
+/***********************************************
+Loading Animation
+From uiverse.io by @G4b413l 
+***********************************************/
+.dot-wave {
+  --uib-size: 50px;
+  --uib-speed: 0.6s;
+  --uib-color: #0d0909;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  width: var(--uib-size);
+  height: calc(var(--uib-size) * 0.17);
+  padding-top: calc(var(--uib-size) * 0.34);
+}
+
+.dot-wave__dot {
+  flex-shrink: 0;
+  width: calc(var(--uib-size) * 0.17);
+  height: calc(var(--uib-size) * 0.17);
+  border-radius: 50%;
+  background-color: var(--uib-color);
+  will-change: transform;
+}
+
+.dot-wave__dot:nth-child(1) {
+  animation: jump824 var(--uib-speed) ease-in-out
+    calc(var(--uib-speed) * -0.45) infinite;
+}
+
+.dot-wave__dot:nth-child(2) {
+  animation: jump824 var(--uib-speed) ease-in-out
+    calc(var(--uib-speed) * -0.3) infinite;
+}
+
+.dot-wave__dot:nth-child(3) {
+  animation: jump824 var(--uib-speed) ease-in-out
+    calc(var(--uib-speed) * -0.15) infinite;
+}
+
+.dot-wave__dot:nth-child(4) {
+  animation: jump824 var(--uib-speed) ease-in-out infinite;
+}
+
+@keyframes jump824 {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-200%);
+  }
 }
