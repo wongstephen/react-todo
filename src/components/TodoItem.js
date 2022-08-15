@@ -12,10 +12,10 @@ export default function TodoItem({ data, del, patch }) {
     del(data.uuid);
   }
   return (
-    <li className="todo-item">
+    <li className="todo__li">
       <span
         onClick={handleClick}
-        style={{ color: struck ? "lightgray" : "black" }}
+        className={`todoItem__span ${struck && "todoItem__span-isStruck"}`}
       >
         {data.label}
       </span>

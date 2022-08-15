@@ -30,13 +30,12 @@ TODO FORM
   outline: 2px solid gray;
 }
 
-
-
-.todo-container > ul {
+.todo__container__table {
   list-style: none;
   padding: 0;
 }
-.todo-container > ul > li{
+
+.todo__container__table > li{
   border: 1px solid lightgray;
   display: flex;
   justify-content: space-between;
@@ -45,13 +44,13 @@ TODO FORM
   padding-left: 1rem;
 }
 
-form {
+.todo__form {
   display: flex;
   justify-content: space-between;
   margin: 0;
   padding: 0;
 }
-form > input {
+.todo__form  > input {
   border: 1px solid lightgray;
   height: 3rem;
   margin: 0;
@@ -59,24 +58,15 @@ form > input {
   width: 100%;
 }
 
-form > button {
-  background-color: lightgray;
-  border-radius: 0;
-  border: 0;
-  font-size: .75rem;
-  font-weight: bold;
-  letter-spacing: .25rem;
-  text-transform: uppercase;
-  width: 5.5rem;
-}
-
 /***********************************************
 TODO ITEM
 ***********************************************/
 .todoItem__del {
-  background-color: none;
+  background-color: orange;
   border: 0;
+  border-radius: 100vmax;
   color: white;
+  cursor: pointer;
   font-size: .5rem;
   font-weight: bold;
   height: 3rem;
@@ -85,9 +75,17 @@ TODO ITEM
   width: 5rem;
 }
 
-.todo-item {
+.todo__li {
   display: flex;
   align-items: center;
+}
+
+.todoItem__span {
+  cursor: pointer;
+}
+.todoItem__span-isStruck {
+  color: gray;
+  text-decoration: line-through;
 }
 
 /***********************************************

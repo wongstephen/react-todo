@@ -2,62 +2,28 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import TodoForm from "./components/TodoForm";
 import TodoItem from "./components/TodoItem";
-// const axios = require("axios");
 import axios from "axios";
+
+//API
+import getTodoData from "./api/getTodos";
+import postTodo from "./api/postTodo";
+import delTodo from "./api/delTodo";
+import patchTodo from "./api/patchTodo";
 
 function App() {
   const [todoArray, setTodoArray] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  function getFetch() {
-    axios
-      .get("/todos", {
-        proxy: {
-          host: "localhost",
-          port: 3000,
-        },
-      })
-      .then((res) => {
-        setTodoArray(res.data.items);
-        setLoading(false);
-      })
-      .catch((err) => console.log("error: " + err));
-  }
-
-  function postTodo(value) {
-    axios
-      .post("todos", { label: value, struck: false, complete: false })
-      .catch((err) => console.log("error: " + err));
-  }
-
-  function delTodo(id) {
-    axios.delete(`/todos/${id}`).catch((err) => console.log("error: " + err));
-  }
-
-  function patchTodo(id, value) {
-    axios
-      .patch(`/todos/${id}`, { struck: value })
-      .catch((err) => console.log("error: " + err));
-  }
-
   useEffect(() => {
-    getFetch();
+    getTodoData(setTodoArray, setLoading);
   }, [todoArray]);
-
-  function onAddTask(taskValue) {
-    if (taskValue === "") return;
-    postTodo(taskValue);
-  }
-  function handleDelItem(id) {
-    delTodo(id);
-  }
 
   return (
     <div className="app__container">
       <h1 className="app__title">Awesome Todo List</h1>
-      <TodoForm addTask={onAddTask} />
-      <div className="todo-container">
-        <ul>
+      <TodoForm addTask={postTodo} />
+      <div className="todo__container">
+        <ul className="todo__container__table">
           {loading ? (
             <center>
               <div className="dot-wave">
@@ -84,7 +50,7 @@ function App() {
                 <TodoItem
                   key={todoItem.uuid}
                   data={todoItem}
-                  del={handleDelItem}
+                  del={delTodo}
                   patch={patchTodo}
                 />
               ))

@@ -12,13 +12,12 @@ export default function TodoForm({ addTask }) {
   }
 
   return (
-    <form onSubmit={handleClick}>
+    <form className="todo__form" onSubmit={handleClick}>
       <input
         type="text"
-        placeholder="Enter something"
+        placeholder="What would you like to do today?"
         onChange={handleChange}
         value={input}
-        className="form__input"
       ></input>
     </form>
   );
