@@ -62,9 +62,8 @@ TODO FORM
 TODO ITEM
 ***********************************************/
 .todoItem__del {
-  background-color: orange;
+  background-color: rgb(133, 8, 8);
   border: 0;
-  border-radius: 100vmax;
   color: white;
   cursor: pointer;
   font-size: .5rem;
