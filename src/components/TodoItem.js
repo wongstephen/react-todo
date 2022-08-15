@@ -1,21 +1,26 @@
 import React, { useState } from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-export default function TodoItem(props) {
-  const [check, setCheck] = useState(true);
+export default function TodoItem({ data, del, patch }) {
+  const [struck, setStruck] = useState(data.struck);
   function handleClick() {
-    setCheck(!check);
+    setStruck(!struck);
+    patch(data.uuid, !struck);
   }
   function handleDel(event) {
-    // event.preventDefault();
-    props.del(props.id);
+    event.preventDefault();
+    del(data.uuid);
   }
   return (
-    <li onClick={handleClick} className='todo-item'>
-      <span style={{ color: check ? "black" : "lightgray" }}>
-        {props.text}{" "}
+    <li className="todo__li">
+      <span
+        onClick={handleClick}
+        className={`todoItem__span ${struck && "todoItem__span-isStruck"}`}
+      >
+        {data.label}
       </span>
-      <button className="del-button" type="button" onClick={handleDel}>
-        Delete
+      <button className="todoItem__del" type="button" onClick={handleDel}>
+        <DeleteIcon />
       </button>
     </li>
   );

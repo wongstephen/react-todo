@@ -1,7 +1,4 @@
-MVP 
+Readme in collaboration with John G.
 
-As user...
-
-Write a todo in a box
-Submit the todo input and list it on the same page - in separate section
-Click a radio button next to the todo item to delete specific item (Mark as complete)
+Stephen created front end. John created back end.
+Goal is to colab and integrate app.
