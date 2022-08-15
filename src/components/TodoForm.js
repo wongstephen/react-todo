@@ -5,14 +5,14 @@ export default function TodoForm({ addTask }) {
   function handleChange(event) {
     setInput(event.target.value);
   }
-  function handleClick(event) {
+  function handleSubmit(event) {
     event.preventDefault();
     addTask(input);
     setInput("");
   }
 
   return (
-    <form className="todo__form" onSubmit={handleClick}>
+    <form className="todo__form" onSubmit={handleSubmit}>
       <input
         type="text"
         placeholder="What would you like to do today?"

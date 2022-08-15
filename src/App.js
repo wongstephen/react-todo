@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import TodoForm from "./components/TodoForm";
 import TodoItem from "./components/TodoItem";
-import axios from "axios";
 
 //API
 import getTodoData from "./api/getTodos";
